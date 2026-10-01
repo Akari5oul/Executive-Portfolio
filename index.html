@@ -57,10 +57,10 @@
     .nav-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1.2rem 2rem;
+      padding: 1.2rem 2rem 0.8rem 2rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
     }
 
     .logo {
@@ -90,7 +90,12 @@
       display: flex;
       gap: 2rem;
       list-style: none;
-      align-items: center;
+      align-items: baseline;
+    }
+
+    .nav-links li {
+      display: flex;
+      align-items: baseline;
     }
 
     .nav-links a {
@@ -100,6 +105,8 @@
       letter-spacing: 0.5px;
       transition: color 0.3s ease;
       cursor: pointer;
+      display: inline-block;
+      line-height: 1;
     }
 
     .nav-links a:hover,
@@ -111,6 +118,7 @@
     .dropdown {
       position: relative;
       display: inline-block;
+      margin-left: 0.8rem; /* Shifts Projects slightly right, reducing gap to Certifications */
     }
 
     .dropdown-btn {
@@ -120,10 +128,11 @@
       letter-spacing: 0.5px;
       transition: color 0.3s ease;
       cursor: pointer;
-      display: flex;
-      align-items: center;
+      display: inline-flex;
+      align-items: baseline;
       gap: 0.3rem;
       padding: 0.5rem 0;
+      line-height: 1;
     }
 
     .dropdown-btn::after {
@@ -137,7 +146,8 @@
     }
 
     .dropdown-menu {
-      display: none;
+      opacity: 0;
+      visibility: hidden;
       position: absolute;
       top: 100%;
       left: 0;
@@ -149,15 +159,28 @@
       overflow: hidden;
       z-index: 1001;
       list-style: none;
+      padding: 0;
+      margin: 0;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .dropdown-menu li {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      display: block;
     }
 
     .dropdown-menu li a {
       color: var(--bg-white);
       padding: 0.8rem 1.2rem;
       display: block;
+      width: 100%;
+      box-sizing: border-box;
       font-size: 0.9rem;
       transition: background-color 0.2s ease, color 0.2s ease;
       white-space: nowrap;
+      line-height: 1.6;
     }
 
     .dropdown-menu li a:hover {
@@ -165,8 +188,10 @@
       color: var(--accent-soft);
     }
 
+    /* Seamless Hover trigger */
     .dropdown:hover .dropdown-menu {
-      display: block;
+      opacity: 1;
+      visibility: visible;
     }
 
     .hero {
@@ -429,6 +454,8 @@
       .nav-container {
         flex-direction: column;
         gap: 1rem;
+        align-items: center;
+        padding-bottom: 1rem;
       }
     }
   </style>
@@ -454,6 +481,8 @@
             <li><a onclick="navigateTo('individual-projects')">Individual Projects</a></li>
           </ul>
         </li>
+
+        <li><a id="nav-certifications" onclick="navigateTo('certifications')">Certifications</a></li>
 
         <li><a id="nav-contact" onclick="navigateTo('home', 'contact')">Contact</a></li>
       </ul>
@@ -596,6 +625,15 @@
     </section>
   </div>
 
+  <!-- PAGE 4: CERTIFICATIONS PAGE -->
+  <div id="page-certifications" class="page-view">
+    <section>
+      <h2 class="section-title">Certifications</h2>
+      <p class="section-subtitle">Professional credentials and achievements</p>
+      <!-- Add your certifications content here -->
+    </section>
+  </div>
+
   <!-- Footer -->
   <footer id="contact">
     <div class="footer-title serif">Sophia Clack</div>
@@ -624,6 +662,8 @@
 
       if (pageId === 'featured-projects' || pageId === 'individual-projects') {
         document.getElementById('nav-projects').classList.add('active-link');
+      } else if (pageId === 'certifications') {
+        document.getElementById('nav-certifications').classList.add('active-link');
       }
 
       if (sectionId) {
