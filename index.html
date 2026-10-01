@@ -18,6 +18,11 @@
       --text-dark: #1C2D2B;
       --text-muted: #526663;
       --border-color: #D3E0DE;
+      --feminine-border: #C2D8D5;
+      
+      /* Metallic Gold Accent Styles */
+      --gold-primary: #D4AF37;
+      --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
     }
 
     * {
@@ -118,7 +123,7 @@
     .dropdown {
       position: relative;
       display: inline-block;
-      margin-left: 0.8rem; /* Shifts Projects slightly right, reducing gap to Certifications */
+      margin-left: 0.8rem;
     }
 
     .dropdown-btn {
@@ -188,7 +193,6 @@
       color: var(--accent-soft);
     }
 
-    /* Seamless Hover trigger */
     .dropdown:hover .dropdown-menu {
       opacity: 1;
       visibility: visible;
@@ -330,6 +334,115 @@
       border: none;
     }
 
+    /* Certificates Grid Layout (Top 2 side by side, 3rd centered below) */
+    .cert-grid-custom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .cert-item-wrapper {
+      width: 100%;
+    }
+
+    .cert-grid-custom .cert-item-wrapper.full-width {
+      grid-column: 1 / -1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Simple Metallic Gold Border Frame Container */
+    .cert-landscape-container {
+      width: 100%;
+      padding: 3px;
+      background: var(--gold-gradient);
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(15, 56, 54, 0.08);
+      position: relative;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .cert-landscape-container:hover {
+      box-shadow: 0 12px 30px rgba(191, 149, 63, 0.25);
+    }
+
+    .cert-landscape-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 76.25%; /* Aspect ratio 4 : 3.05 preserved */
+      background-color: #ffffff;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .cert-landscape-frame iframe,
+    .cert-landscape-frame img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      overflow: hidden;
+      object-fit: contain;
+      background-color: #fff;
+    }
+
+    /* Overlay Overlay / Modal for Enlarged Click View */
+    .cert-modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(15, 56, 54, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cert-modal-backdrop.active {
+      display: flex;
+    }
+
+    .cert-modal-content {
+      width: 850px;
+      max-width: 92vw;
+      padding: 4px;
+      background: var(--gold-gradient);
+      border-radius: 10px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .cert-modal-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 76.25%;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cert-modal-frame iframe,
+    .cert-modal-frame img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      object-fit: contain;
+      background-color: #fff;
+    }
+
     .adobe-express-container {
       position: absolute;
       top: 0;
@@ -445,6 +558,12 @@
     }
 
     @media (max-width: 768px) {
+      .cert-grid-custom {
+        grid-template-columns: 1fr;
+      }
+      .cert-grid-custom .cert-item-wrapper.full-width {
+        max-width: 100%;
+      }
       .hero h1 {
         font-size: 2.4rem;
       }
@@ -629,9 +748,46 @@
   <div id="page-certifications" class="page-view">
     <section>
       <h2 class="section-title">Certifications</h2>
-      <p class="section-subtitle">Professional credentials and achievements</p>
-      <!-- Add your certifications content here -->
+      <p class="section-subtitle">Professional credentials and verified achievements</p>
+      
+      <div class="cert-grid-custom">
+        <!-- Certificate 1: Typist Certificate -->
+        <div class="cert-item-wrapper">
+          <div class="cert-landscape-container" onclick="openCertModal('iframe', 'https://1drv.ms/b/c/d018a6249b4c1438/IQS-QMfdDiH_Tb5UsS7aW7MqAYTv24UPxs3OAfsgClhWWIo#toolbar=0&navpanes=0&scrollbar=0&view=FitH')">
+            <div class="cert-landscape-frame">
+              <iframe src="https://1drv.ms/b/c/d018a6249b4c1438/IQS-QMfdDiH_Tb5UsS7aW7MqAYTv24UPxs3OAfsgClhWWIo#toolbar=0&navpanes=0&scrollbar=0&view=FitH" frameborder="0" scrolling="no" style="overflow: hidden; pointer-events: none;"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certificate 2: Credential Image -->
+        <div class="cert-item-wrapper">
+          <div class="cert-landscape-container" onclick="openCertModal('img', 'https://1drv.ms/i/c/d018a6249b4c1438/IQRcQOPq_U2xS4Bm5ZpuJmrJAcwE8XZrfrAcNLUkR9f7ru4')">
+            <div class="cert-landscape-frame">
+              <img src="https://1drv.ms/i/c/d018a6249b4c1438/IQRcQOPq_U2xS4Bm5ZpuJmrJAcwE8XZrfrAcNLUkR9f7ru4" alt="Professional Certificate Credential" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Certificate 3: Embedded Document (Centered below) -->
+        <div class="cert-item-wrapper full-width">
+          <div class="cert-landscape-container" onclick="openCertModal('iframe', 'https://1drv.ms/b/c/d018a6249b4c1438/IQQWfUwS3WtsQpTZetWPogYfAWAqNr2oOHdZDFviYOUraLQ#toolbar=0&navpanes=0&scrollbar=0&view=FitH')">
+            <div class="cert-landscape-frame">
+              <iframe src="https://1drv.ms/b/c/d018a6249b4c1438/IQQWfUwS3WtsQpTZetWPogYfAWAqNr2oOHdZDFviYOUraLQ#toolbar=0&navpanes=0&scrollbar=0&view=FitH" frameborder="0" scrolling="no" style="overflow: hidden; pointer-events: none;"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+  </div>
+
+  <!-- Modal for Enlarged Click View -->
+  <div id="certModalBackdrop" class="cert-modal-backdrop" onclick="closeCertModal()">
+    <div class="cert-modal-content" onclick="event.stopPropagation()">
+      <div id="certModalFrame" class="cert-modal-frame">
+        <!-- Content dynamically injected via JavaScript -->
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -674,6 +830,28 @@
       } else {
         window.scrollTo(0, 0);
       }
+    }
+
+    /* Modal Click View Functions */
+    function openCertModal(type, src) {
+      const modalBackdrop = document.getElementById('certModalBackdrop');
+      const modalFrame = document.getElementById('certModalFrame');
+
+      if (type === 'iframe') {
+        modalFrame.innerHTML = '<iframe src="' + src + '" frameborder="0" scrolling="no" style="overflow: hidden;"></iframe>';
+      } else if (type === 'img') {
+        modalFrame.innerHTML = '<img src="' + src + '" alt="Enlarged Certificate Credential" />';
+      }
+
+      modalBackdrop.classList.add('active');
+    }
+
+    function closeCertModal() {
+      const modalBackdrop = document.getElementById('certModalBackdrop');
+      const modalFrame = document.getElementById('certModalFrame');
+      
+      modalBackdrop.classList.remove('active');
+      modalFrame.innerHTML = '';
     }
 
     window.addEventListener('load', function() {
